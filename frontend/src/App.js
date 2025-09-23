@@ -1,0 +1,133 @@
+// Main App component - Manages routing and authentication state
+import React, { useState, useEffect } from 'react';
+import Login from './components/Login';
+import Register from './components/Register';
+import DoctorList from './components/DoctorList';
+import BookAppointment from './components/BookAppointment';
+import MyAppointments from './components/MyAppointments';
+import './styles/App.css';
+
+function App() {
+  // State to track current page/view
+  const [currentPage, setCurrentPage] = useState('login');
+  
+  // State to track if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  // State to store user information
+  const [user, setUser] = useState(null);
+  
+  // State to store selected doctor for booking
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+  // Check if user is already logged in when app loads
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    
+    if (token && userData) {
+      setIsLoggedIn(true);
+      setUser(JSON.parse(userData));
+      setCurrentPage('doctors'); // Navigate to doctors page if already logged in
+    }
+  }, []);
+
+  // Handle successful login
+  const handleLogin = (userData) => {
+    setIsLoggedIn(true);
+    setUser(userData);
+    setCurrentPage('doctors');
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUser(null);
+    setCurrentPage('login');
+  };
+
+  // Handle doctor selection for booking
+  const handleSelectDoctor = (doctor) => {
+    setSelectedDoctor(doctor);
+    setCurrentPage('book');
+  };
+
+  // Handle successful appointment booking
+  const handleBookingSuccess = () => {
+    setCurrentPage('appointments');
+    setSelectedDoctor(null);
+  };
+
+  // Render different components based on current page
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'login':
+        return <Login onLogin={handleLogin} onNavigate={setCurrentPage} />;
+      
+      case 'register':
+        return <Register onRegister={handleLogin} onNavigate={setCurrentPage} />;
+      
+      case 'doctors':
+        return <DoctorList onSelectDoctor={handleSelectDoctor} />;
+      
+      case 'book':
+        return (
+          <BookAppointment 
+            doctor={selectedDoctor} 
+            onSuccess={handleBookingSuccess}
+            onBack={() => setCurrentPage('doctors')}
+          />
+        );
+      
+      case 'appointments':
+        return <MyAppointments />;
+      
+      default:
+        return <Login onLogin={handleLogin} onNavigate={setCurrentPage} />;
+    }
+  };
+
+  return (
+    <div className="app">
+      {/* Header with navigation */}
+      <header className="app-header">
+        <h1>🏥 Doctor Appointment System</h1>
+        
+        {/* Show navigation menu only when logged in */}
+        {isLoggedIn && (
+          <nav className="nav-menu">
+            <button 
+              onClick={() => setCurrentPage('doctors')}
+              className={currentPage === 'doctors' ? 'active' : ''}
+            >
+              Find Doctors
+            </button>
+            <button 
+              onClick={() => setCurrentPage('appointments')}
+              className={currentPage === 'appointments' ? 'active' : ''}
+            >
+              My Appointments
+            </button>
+            <button onClick={handleLogout} className="logout-btn">
+              Logout ({user?.name})
+            </button>
+          </nav>
+        )}
+      </header>
+
+      {/* Main content area */}
+      <main className="app-main">
+        {renderPage()}
+      </main>
+
+      {/* Footer */}
+      <footer className="app-footer">
+        <p>© 2024 Doctor Appointment System - Team Mietians</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
