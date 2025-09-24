@@ -11,7 +11,9 @@ const connectDB = async () => {
         console.log('MongoDB Connected Successfully');
         
         // Seed initial doctor data if database is empty
-        seedDoctors();
+        await seedDoctors();
+        await seedAdminUser(); // Add this line
+
     } catch (error) {
         console.error('MongoDB Connection Error:', error);
         process.exit(1); // Exit process with failure
@@ -34,56 +36,47 @@ const seedDoctors = async () => {
                     specialization: "Gyencologist",
                     email: "arpit.tomar@hospital.com",
                     phone: "75155-59965",
-                    experience: 15
+                    
                 },
                  {
                     name: "Dr. Aman Singh",
                     specialization: "Gyencologist",
                     email: "aman.singh@hospital.com",
                     phone: "86308-28811",
-                    experience: 8
+                    experience: 8,
+                    
                 },
                 {
-                    name: "Dr. Anil Chauhan",
+                    name: "Dr. Rajesh Chauhan",
                     specialization: "Cardiologist",
-                    email: "anil.chauhan@hospital.com",
-                    phone: "92549-01051",
-                    experience: 10
-                },
-                {
-                    name: "Dr. Khusboo Chaudhary",
-                    specialization: "Pediatrician",
-                    email: "khus.ch@hospital.com",
-                    phone: "75984-01502",
-                    experience: 9
+                    email: "rajesh@hospital.com",
+                    phone: "9876543210",
+                    experience: 15,
+                    
                 },
                 {
                     name: "Dr. Abdul Ansari",
                     specialization: "Dermatologist",
                     email: "abdul.ansari@hospital.com",
                     phone: "84565-01703",
-                    experience: 12
+                    experience: 12,
+                    
                 },
                 {
                     name: "Dr. Jassi Kaur",
                     specialization: "Orthopedic Surgeon",
                     email: "jassi.kaur@hospital.com",
                     phone: "75955-71564",
-                    experience: 10
-                },
-                {
-                    name: "Dr. Shekhar Tomar",
-                    specialization: "General Physician",
-                    email: "sheku.tomar@hospital.com",
-                    phone: "75665-59105",
-                    experience: 6
+                    experience: 10,
+                    
                 },
                 {
                     name: "Dr. Yug Shisodia",
                     specialization: "Physioterapist",
                     email: "yug.shisodia@hospital.com",
                     phone: "75665-59105",
-                    experience: 6
+                    experience: 6,
+                    
                 }
             ];
             
@@ -92,6 +85,44 @@ const seedDoctors = async () => {
         }
     } catch (error) {
         console.error('Error seeding doctors:', error);
+    }
+};
+
+// Function to seed admin user
+const seedAdminUser = async () => {
+    const User = require('../models/User');
+    
+    try {
+        // Check if admin user exists
+        const adminExists = await User.findOne({ email: 'admin@hospital.com' });
+        
+        if (!adminExists) {
+            const adminUser = new User({
+                name: 'Hospital Admin',
+                email: 'admin@hospital.com',
+                password: 'admin123', // Will be hashed automatically
+                phone: '63961-81192',
+                age: 30,
+                gender: 'Male',
+                role: 'admin'    // IMPORTANT: This creates admin user
+            });
+            
+            await adminUser.save();
+            console.log('Admin user created successfully');
+            console.log('Admin Login: admin@hospital.com / admin123');
+        }   else {
+            console.log('ℹ️  Admin user already exists');
+            
+            // Double check the role is set correctly
+            if (adminExists.role !== 'admin') {
+                adminExists.role = 'admin';
+                await adminExists.save();
+                console.log('✅ Admin role updated');
+            }
+        }
+
+    } catch (error) {
+        console.error('Error seeding admin user:', error);
     }
 };
 

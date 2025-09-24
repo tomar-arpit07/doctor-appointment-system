@@ -1,4 +1,4 @@
-// Appointment routes - Handle appointment booking and management
+
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
@@ -63,16 +63,39 @@ router.get('/', authMiddleware, async (req, res) => {
     try {
         const patientId = req.userId;
         
-        // Fetch appointments for this patient
+        // Fetch appointments for this patient with proper error handling
         const appointments = await Appointment.find({ 
             patient: patientId 
         })
-        .populate('doctor', 'name specialization email phone')
+        .populate({
+            path: 'doctor',
+            select: 'name specialization email phone',
+            // Handle case where doctor might be deleted
+            options: { strictPopulate: false }
+        })
         .sort({ date: -1 }); // Sort by date (newest first)
+        
+        // Filter out appointments where doctor was deleted
+        const validAppointments = appointments.map(appointment => {
+            // Convert to object and handle missing doctor
+            const appointmentObj = appointment.toObject();
+            
+            // If doctor is null (deleted), add placeholder info
+            if (!appointmentObj.doctor) {
+                appointmentObj.doctor = {
+                    name: 'Doctor information unavailable',
+                    specialization: 'N/A',
+                    email: 'N/A',
+                    phone: 'N/A'
+                };
+            }
+            
+            return appointmentObj;
+        });
         
         res.json({
             message: 'Appointments fetched successfully',
-            appointments
+            appointments: validAppointments
         });
     } catch (error) {
         console.error('Error fetching appointments:', error);

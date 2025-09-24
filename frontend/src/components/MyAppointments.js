@@ -1,4 +1,3 @@
-// MyAppointments Component - Shows user's appointments
 import React, { useState, useEffect } from 'react';
 import apiService from '../services/api';
 
@@ -17,6 +16,7 @@ function MyAppointments() {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
+      setError('');
       const response = await apiService.appointments.getMine();
       setAppointments(response.appointments);
     } catch (err) {
@@ -79,7 +79,14 @@ function MyAppointments() {
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return (
+      <div className="error-message">
+        {error}
+        <button onClick={fetchAppointments} className="btn-secondary" style={{marginTop: '1rem'}}>
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -104,12 +111,18 @@ function MyAppointments() {
               <div className="appointment-details">
                 <div className="detail-row">
                   <strong>Doctor:</strong>
-                  <span>{appointment.doctor.name}</span>
+                  <span>
+                    {/* FIX: Add null check for doctor */}
+                    {appointment.doctor ? appointment.doctor.name : 'Doctor information not available'}
+                  </span>
                 </div>
                 
                 <div className="detail-row">
                   <strong>Specialization:</strong>
-                  <span>{appointment.doctor.specialization}</span>
+                  <span>
+                    {/* FIX: Add null check for doctor */}
+                    {appointment.doctor ? appointment.doctor.specialization : 'N/A'}
+                  </span>
                 </div>
                 
                 <div className="detail-row">
@@ -127,9 +140,17 @@ function MyAppointments() {
                   <span>{appointment.reason}</span>
                 </div>
                 
+                {/* Only show contact if doctor info exists */}
+                {appointment.doctor && (
+                  <div className="detail-row">
+                    <strong>Contact:</strong>
+                    <span>{appointment.doctor.phone}</span>
+                  </div>
+                )}
+                
                 <div className="detail-row">
-                  <strong>Contact:</strong>
-                  <span>{appointment.doctor.phone}</span>
+                  <strong>Booked On:</strong>
+                  <span>{new Date(appointment.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
 

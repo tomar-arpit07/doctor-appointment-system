@@ -22,7 +22,7 @@ body {
 
 /* Header Styles */
 .app-header {
-  background-color: #2c3e50;
+  background-color: #0d486f;
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -32,7 +32,7 @@ body {
 
 .app-header h1 {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 /* Navigation Menu */
@@ -83,7 +83,7 @@ body {
 
 /* Footer */
 .app-footer {
-  background-color: #34495e;
+  background-color: #0d486f;
   color: white;
   text-align: center;
   padding: 1rem;
@@ -516,5 +516,727 @@ button:disabled {
 
   .form-row {
     flex-direction: column;
+  }
+}
+
+/* Added these styles to our existing frontend/src/styles/App.css */
+
+/* Admin Panel Styles */
+.admin-panel {
+  padding: 1rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #3498db;
+}
+
+.admin-header h2 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Doctors Admin List */
+.doctors-admin-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.doctor-admin-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.doctor-admin-info {
+  flex: 1;
+}
+
+.doctor-admin-info h3 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+}
+
+.doctor-admin-info p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.doctor-admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.doctor-admin-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+/* Doctor Form Styles */
+.doctor-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.doctor-form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.doctor-form-card h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.doctor-form-card .form-group {
+  margin-bottom: 1rem;
+}
+
+.doctor-form-card .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.doctor-form-card .form-group input,
+.doctor-form-card .form-group select,
+.doctor-form-card .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.doctor-form-card .form-group small {
+  color: #666;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.doctor-form-card .button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.doctor-form-card .button-group button {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* Admin-specific button styles */
+.btn-admin-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-admin-primary:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.btn-admin-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-admin-secondary:hover {
+  background-color: #7f8c8d;
+}
+
+.btn-admin-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-admin-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Success message for admin actions */
+.admin-success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #c3e6cb;
+}
+
+/* Admin badge in navigation */
+.admin-badge {
+  background: #f39c12;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+/* Responsive design for admin panel */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .doctor-admin-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .doctor-admin-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .doctor-form-container {
+    padding: 1rem;
+  }
+
+  .doctor-form-card {
+    width: 100%;
+    max-height: 95vh;
+    margin: 0;
+  }
+
+  .doctor-form-card .button-group {
+    flex-direction: column;
+  }
+}
+
+/* Loading spinner for admin actions */
+.admin-loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty state for admin panel */
+.admin-empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+
+.admin-empty-state h3 {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.admin-empty-state p {
+  color: #999;
+  margin-bottom: 1.5rem;
+}
+
+/* Confirmation modal styles */
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.confirmation-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  max-width: 400px;
+}
+
+.confirmation-modal-content h3 {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.confirmation-modal-content p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-modal-content .button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Added these styles to our existing frontend/src/styles/App.css */
+
+/* Admin Badge in Navigation */
+.admin-badge {
+  background: #f39c12;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+/* Admin Panel Styles */
+.admin-panel {
+  padding: 1rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #3498db;
+}
+
+.admin-header h2 {
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Doctors Admin List */
+.doctors-admin-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.doctor-admin-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.doctor-admin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.doctor-admin-info {
+  flex: 1;
+}
+
+.doctor-admin-info h3 {
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+}
+
+.doctor-admin-info p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.doctor-admin-info p strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.doctor-admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.doctor-admin-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  width: 100%;
+  font-weight: 500;
+}
+
+/* Doctor Form Styles */
+.doctor-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.doctor-form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.doctor-form-card h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.doctor-form-card .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.doctor-form-card .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.doctor-form-card .form-group input,
+.doctor-form-card .form-group select,
+.doctor-form-card .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.doctor-form-card .form-group input:focus,
+.doctor-form-card .form-group select:focus,
+.doctor-form-card .form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.doctor-form-card .form-group small {
+  color: #666;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+.doctor-form-card .button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.doctor-form-card .button-group button {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Loading spinner for admin actions */
+.admin-loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty state for admin panel */
+.admin-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+
+.admin-empty-state h3 {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.admin-empty-state p {
+  color: #999;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Enhanced button styles for admin */
+.btn-primary:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #7f8c8d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+/* Enhanced navigation for admin users */
+.nav-menu button.active {
+  background: rgba(255,255,255,0.2);
+  border-color: white;
+  font-weight: 600;
+}
+
+.nav-menu button:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+
+/* Responsive design for admin panel */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .admin-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .doctor-admin-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .doctor-admin-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .doctor-form-container {
+    padding: 0.5rem;
+  }
+
+  .doctor-form-card {
+    padding: 1.5rem;
+    max-height: 95vh;
+    margin: 0;
+  }
+
+  .doctor-form-card .button-group {
+    flex-direction: column;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-menu button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .admin-badge {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+  }
+}
+
+/* Success animation for form submission */
+@keyframes success-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.success-animation {
+  animation: success-pulse 0.3s ease-in-out;
+}
+
+/* Loading state for entire admin panel */
+.admin-panel .loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.admin-panel .loading .admin-loading {
+  margin-right: 0.75rem;
+  width: 20px;
+  height: 20px;
+}
+
+/* Error state improvements */
+.admin-panel .error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid #fcc;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Confirmation styles for delete actions */
+.confirmation-text {
+  font-weight: 600;
+  color: #e74c3c;
+}
+
+/* Table-like layout for larger screens */
+@media (min-width: 1200px) {
+  .doctors-admin-list {
+    display: block;
+  }
+  
+  .doctor-admin-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .doctor-admin-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  
+  .doctor-admin-actions {
+    flex-direction: row;
+    min-width: 140px;
+  }
+}
+
+/* Improved form validation styles */
+.form-group input:invalid,
+.form-group select:invalid {
+  border-color: #e74c3c;
+}
+
+.form-group input:valid,
+.form-group select:valid {
+  border-color: #27ae60;
+}
+
+/* Toast-style notifications (if you want to add them later) */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #27ae60;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1001;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast-notification.error {
+  background: #e74c3c;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

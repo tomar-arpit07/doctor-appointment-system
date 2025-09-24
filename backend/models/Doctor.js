@@ -37,11 +37,7 @@ const doctorSchema = new mongoose.Schema({
         required: [true, 'Experience is required']
     },
     
-    // Available time slots (simplified for this project)
-    availableSlots: {
-        type: [String],
-        default: ['9:00 AM', '10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM', '4:00 PM']
-    },
+    
     
     // Timestamps
     createdAt: {

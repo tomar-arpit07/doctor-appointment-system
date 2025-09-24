@@ -1,4 +1,4 @@
-// Authentication routes - Handle user registration and login
+// REPLACE: backend/routes/auth.js - COMPLETE UPDATED FILE
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -25,6 +25,7 @@ router.post('/register', async (req, res) => {
             phone,
             age,
             gender
+            // role will default to 'patient'
         });
         
         // Save user to database
@@ -37,14 +38,15 @@ router.post('/register', async (req, res) => {
             { expiresIn: '7d' }
         );
         
-        // Send response
+        // Send response - INCLUDE ROLE HERE
         res.status(201).json({
             message: 'User registered successfully',
             token,
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                role: user.role  // ADD THIS LINE
             }
         });
     } catch (error) {
@@ -54,7 +56,7 @@ router.post('/register', async (req, res) => {
 });
 
 // @route   POST /api/auth/login
-// @desc    Login patient
+// @desc    Login patient/admin
 // @access  Public
 router.post('/login', async (req, res) => {
     try {
@@ -79,14 +81,15 @@ router.post('/login', async (req, res) => {
             { expiresIn: '7d' }
         );
         
-        // Send response
+        // Send response - INCLUDE ROLE HERE
         res.json({
             message: 'Login successful',
             token,
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                role: user.role  // ADD THIS LINE - This is the missing piece!
             }
         });
     } catch (error) {

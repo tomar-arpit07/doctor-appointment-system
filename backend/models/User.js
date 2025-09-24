@@ -1,4 +1,4 @@
-// User model - Represents patients in the system
+// REPLACE: backend/models/User.js - COMPLETE UPDATED FILE
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -43,6 +43,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['Male', 'Female', 'Other'],
         required: true
+    },
+    
+    // ADD THIS: User role for admin functionality
+    role: {
+        type: String,
+        enum: ['patient', 'admin'],
+        default: 'patient'
     },
     
     // Timestamps

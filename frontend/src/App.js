@@ -1,10 +1,11 @@
-// Main App component - Manages routing and authentication state
+// frontend/src/App.js - COMPLETE UPDATED FILE
 import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
 import DoctorList from './components/DoctorList';
 import BookAppointment from './components/BookAppointment';
 import MyAppointments from './components/MyAppointments';
+import AdminPanel from './components/AdminPanel';
 import './styles/App.css';
 
 function App() {
@@ -26,9 +27,16 @@ function App() {
     const userData = localStorage.getItem('user');
     
     if (token && userData) {
+      const parsedUser = JSON.parse(userData);
       setIsLoggedIn(true);
-      setUser(JSON.parse(userData));
-      setCurrentPage('doctors'); // Navigate to doctors page if already logged in
+      setUser(parsedUser);
+      
+      // If admin, go to admin panel; if patient, go to doctors
+      if (parsedUser.role === 'admin') {
+        setCurrentPage('admin');
+      } else {
+        setCurrentPage('doctors');
+      }
     }
   }, []);
 
@@ -36,7 +44,13 @@ function App() {
   const handleLogin = (userData) => {
     setIsLoggedIn(true);
     setUser(userData);
-    setCurrentPage('doctors');
+    
+    // Redirect based on role
+    if (userData.role === 'admin') {
+      setCurrentPage('admin');
+    } else {
+      setCurrentPage('doctors');
+    }
   };
 
   // Handle logout
@@ -45,6 +59,7 @@ function App() {
     localStorage.removeItem('user');
     setIsLoggedIn(false);
     setUser(null);
+    setSelectedDoctor(null);
     setCurrentPage('login');
   };
 
@@ -59,6 +74,9 @@ function App() {
     setCurrentPage('appointments');
     setSelectedDoctor(null);
   };
+
+  // Check if current user is admin
+  const isAdmin = user?.role === 'admin';
 
   // Render different components based on current page
   const renderPage = () => {
@@ -84,6 +102,15 @@ function App() {
       case 'appointments':
         return <MyAppointments />;
       
+      case 'admin':
+        return isAdmin ? (
+          <AdminPanel />
+        ) : (
+          <div className="error-message">
+            Access Denied. Admin privileges required.
+          </div>
+        );
+      
       default:
         return <Login onLogin={handleLogin} onNavigate={setCurrentPage} />;
     }
@@ -93,25 +120,48 @@ function App() {
     <div className="app">
       {/* Header with navigation */}
       <header className="app-header">
-        <h1>🏥 Doctor Appointment System</h1>
+        <h1>🏥 Get Appoint</h1>
         
         {/* Show navigation menu only when logged in */}
         {isLoggedIn && (
           <nav className="nav-menu">
-            <button 
-              onClick={() => setCurrentPage('doctors')}
-              className={currentPage === 'doctors' ? 'active' : ''}
-            >
-              Find Doctors
-            </button>
-            <button 
-              onClick={() => setCurrentPage('appointments')}
-              className={currentPage === 'appointments' ? 'active' : ''}
-            >
-              My Appointments
-            </button>
+            {/* Show different navigation based on user role */}
+            {isAdmin ? (
+              // Admin Navigation
+              <>
+                <button 
+                  onClick={() => setCurrentPage('admin')}
+                  className={currentPage === 'admin' ? 'active' : ''}
+                >
+                  👨‍💼 Manage Doctors
+                </button>
+                <button 
+                  onClick={() => setCurrentPage('doctors')}
+                  className={currentPage === 'doctors' ? 'active' : ''}
+                >
+                  View Doctors
+                </button>
+              </>
+            ) : (
+              // Patient Navigation
+              <>
+                <button 
+                  onClick={() => setCurrentPage('doctors')}
+                  className={currentPage === 'doctors' ? 'active' : ''}
+                >
+                  Find Doctors
+                </button>
+                <button 
+                  onClick={() => setCurrentPage('appointments')}
+                  className={currentPage === 'appointments' ? 'active' : ''}
+                >
+                  My Appointments
+                </button>
+              </>
+            )}
+            
             <button onClick={handleLogout} className="logout-btn">
-              Logout ({user?.name})
+              Logout ({user?.name}) {isAdmin && <span className="admin-badge">ADMIN</span>}
             </button>
           </nav>
         )}

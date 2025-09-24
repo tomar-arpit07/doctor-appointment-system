@@ -1,4 +1,4 @@
-// API Service - Handles all HTTP requests to backend
+// frontend/src/services/api.js - COMPLETE UPDATED FILE
 import axios from 'axios';
 
 // Base URL for backend API
@@ -26,6 +26,21 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor to handle errors globally
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // If token is invalid, logout user
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      // You might want to redirect to login page here
+      window.location.href = '/';
+    }
     return Promise.reject(error);
   }
 );
@@ -58,6 +73,24 @@ const apiService = {
     // Get single doctor by ID
     getById: async (doctorId) => {
       const response = await api.get(`/doctors/${doctorId}`);
+      return response.data;
+    },
+    
+    // Create new doctor (Admin only)
+    create: async (doctorData) => {
+      const response = await api.post('/doctors', doctorData);
+      return response.data;
+    },
+    
+    // Update doctor (Admin only)
+    update: async (doctorId, doctorData) => {
+      const response = await api.put(`/doctors/${doctorId}`, doctorData);
+      return response.data;
+    },
+    
+    // Delete doctor (Admin only)
+    delete: async (doctorId) => {
+      const response = await api.delete(`/doctors/${doctorId}`);
       return response.data;
     }
   },
