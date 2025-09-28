@@ -88,7 +88,7 @@ function AdminPanel() {
       <div className="admin-header">
         <h2>👨‍💼 Doctor Management</h2>
         <button 
-          className="btn-primary"
+          className="btn-primary addDoctor"
           onClick={handleAdd}
         >
           + Add New Doctor

@@ -540,6 +540,10 @@ button:disabled {
   margin: 0;
 }
 
+.addDoctor {
+  width: auto;
+}
+
 /* Doctors Admin List */
 .doctors-admin-list {
   display: grid;
@@ -1178,7 +1182,8 @@ button:disabled {
 /* Table-like layout for larger screens */
 @media (min-width: 1200px) {
   .doctors-admin-list {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
   
   .doctor-admin-card {
@@ -1196,7 +1201,7 @@ button:disabled {
   }
   
   .doctor-admin-actions {
-    flex-direction: row;
+    flex-direction: column;
     min-width: 140px;
   }
 }

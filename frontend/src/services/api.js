@@ -1,8 +1,8 @@
 // frontend/src/services/api.js - COMPLETE UPDATED FILE
 import axios from 'axios';
 
-// Base URL for backend API
-const API_URL = 'http://localhost:5000/api';
+// Base URL for backend API and react app url' set on netlify
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 // Create axios instance with default config
 const api = axios.create({

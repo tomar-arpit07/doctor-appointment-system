@@ -1,4 +1,4 @@
-// frontend/src/App.js - COMPLETE UPDATED FILE
+
 import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -30,6 +30,7 @@ function App() {
       const parsedUser = JSON.parse(userData);
       setIsLoggedIn(true);
       setUser(parsedUser);
+  
       
       // If admin, go to admin panel; if patient, go to doctors
       if (parsedUser.role === 'admin') {
@@ -81,6 +82,7 @@ function App() {
   // Render different components based on current page
   const renderPage = () => {
     switch (currentPage) {
+      
       case 'login':
         return <Login onLogin={handleLogin} onNavigate={setCurrentPage} />;
       
@@ -133,7 +135,7 @@ function App() {
                   onClick={() => setCurrentPage('admin')}
                   className={currentPage === 'admin' ? 'active' : ''}
                 >
-                  👨‍💼 Manage Doctors
+                  Manage Doctors
                 </button>
                 <button 
                   onClick={() => setCurrentPage('doctors')}
@@ -161,7 +163,7 @@ function App() {
             )}
             
             <button onClick={handleLogout} className="logout-btn">
-              Logout ({user?.name}) {isAdmin && <span className="admin-badge">ADMIN</span>}
+              Logout  {isAdmin && <span className="admin-badge">ADMIN</span>}
             </button>
           </nav>
         )}
