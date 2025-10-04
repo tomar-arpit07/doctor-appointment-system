@@ -3,8 +3,8 @@
 A full-stack web application for managing doctor appointments with secure patient registration, doctor listings, and appointment scheduling.
 
 
-## 📱 Screenshots
-[We will add screenshots of our application here]
+## 📱 Live Link
+Our site live at this link - https://getappoint.netlify.app
 
 ## ⚡ Features
 
@@ -14,6 +14,7 @@ A full-stack web application for managing doctor appointments with secure patien
 - **Appointment Management** - View, track, and cancel appointments
 - **Responsive Design** - Works seamlessly on desktop and mobile
 - **Real-time Validation** - Prevents double booking and conflicts
+- **Admin Feature** - Admin can add, delete and edit details of doctors.
 
 ## 🛠️ Tech Stack
 
@@ -207,7 +208,7 @@ npm test
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE] file for details.
+This project is licensed under the MIT License.
 
 
 ## 📞 Support
